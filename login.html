@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Giriş Yap</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Giriş Yap</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="E-posta" required />
+      <input type="password" id="password" placeholder="Şifre" required />
+      <button type="submit">Giriş</button>
+    </form>
+    <p id="login-message"></p>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Geçici olarak giriş kontrolü (örnek kullanıcı)
+      if (email === "test@test.com" && password === "123456") {
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("login-message").textContent = "Hatalı giriş bilgileri!";
+      }
+    });
+  </script>
+</body>
+</html>

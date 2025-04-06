@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hedef Takip</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 🔒 Giriş kontrolü -->
+  <script>
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Hedef Takip</h1>
+
+    <form id="goal-form">
+      <input type="text" id="goal-input" placeholder="Yeni hedef gir..." required />
+      <button type="submit">Ekle</button>
+    </form>
+
+    <ul id="goal-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
