@@ -2,29 +2,180 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hedef Takip</title>
+  <title>Hedeflerim</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- 🔒 Giriş kontrolü -->
-  <script>
-    if (!localStorage.getItem("loggedIn")) {
-      window.location.href = "login.html";
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
     }
-  </script>
+    .container {
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .goal-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .goal-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .progress-container {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .day {
+      width: 30px;
+      height: 30px;
+      background-color: #eee;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .day.completed {
+      background-color: #4caf50;
+      color: white;
+    }
+    #add-goal-form {
+      margin-top: 30px;
+      text-align: center;
+    }
+    #goal-input {
+      padding: 10px;
+      width: 250px;
+      margin-right: 10px;
+    }
+    #logout-btn {
+      margin-top: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 20px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎯 Hedef Takip</h1>
 
-    <form id="goal-form">
-      <input type="text" id="goal-input" placeholder="Yeni hedef gir..." required />
-      <button type="submit">Ekle</button>
+  <div class="container">
+    <h1>🎯 Hedeflerim</h1>
+
+    <div id="goals">
+      <!-- Hedefler buraya eklenecek -->
+    </div>
+
+    <form id="add-goal-form">
+      <input type="text" id="goal-input" placeholder="Yeni hedef ekle..." required>
+      <button type="submit">Hedef Ekle</button>
     </form>
 
-    <ul id="goal-list"></ul>
+    <button id="logout-btn">Çıkış Yap</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Eğer kullanıcı giriş yapmamışsa login sayfasına yönlendir
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    const defaultGoals = [
+      "Her gün diş fırçalamak",
+      "Cilt bakımı yapmak",
+      "Yürüyüşe çıkmak",
+      "Her gün kitap okumak"
+    ];
+
+    const goalsContainer = document.getElementById('goals');
+    const addGoalForm = document.getElementById('add-goal-form');
+    const goalInput = document.getElementById('goal-input');
+
+    function createGoalCard(goalTitle) {
+      const card = document.createElement('div');
+      card.className = 'goal-card';
+
+      const title = document.createElement('div');
+      title.className = 'goal-title';
+      title.textContent = goalTitle;
+      card.appendChild(title);
+
+      const progressContainer = document.createElement('div');
+      progressContainer.className = 'progress-container';
+
+      for (let i = 1; i <= 21; i++) {
+        const day = document.createElement('div');
+        day.className = 'day';
+        day.textContent = i;
+        day.addEventListener('click', () => {
+          day.classList.toggle('completed');
+          alert(motivations[i - 1]); // Motive edici mesajı göster
+        });
+        progressContainer.appendChild(day);
+      }
+
+      card.appendChild(progressContainer);
+      goalsContainer.appendChild(card);
+    }
+
+    // Default hedefleri göster
+    defaultGoals.forEach(goal => createGoalCard(goal));
+
+    // Yeni hedef ekle
+    addGoalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newGoal = goalInput.value.trim();
+      if (newGoal) {
+        createGoalCard(newGoal);
+        goalInput.value = '';
+      }
+    });
+
+    // Çıkış Yap
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      window.location.href = "login.html";
+    });
+
+    // 21 günlük motive edici mesajlar
+    const motivations = [
+      "Başlamak en zor kısmı. Başladığın için tebrikler!",
+      "Bugün küçük de olsa bir adım attın.",
+      "İstikrar, başarıdan daha değerlidir.",
+      "Her gün 1% daha iyi oluyorsun!",
+      "Alışkanlıklar seni inşa eder.",
+      "Vazgeçmek yok, devam!",
+      "Küçük zaferler büyük değişim getirir.",
+      "İnandığın sürece kazanırsın.",
+      "Düşsen bile tekrar kalk!",
+      "Bugün yapamadıysan yarın iki katı çalış.",
+      "Sen düşündüğünden daha güçlüsün.",
+      "Başarı, devam edebilmektir.",
+      "Küçük adımlar büyük farklar yaratır.",
+      "Her yeni gün bir şans.",
+      "Alışkanlıklarını sen seçersin.",
+      "Kendine inanmaya devam et!",
+      "İç motivasyonun ateşini yak.",
+      "Bu süreç seni güçlendiriyor.",
+      "Pes etme, zafer yakında.",
+      "Hayalini kurduğun hayat bir adım ötede.",
+      "Şimdi Chapter 1 tamamlandı!"
+    ];
+  </script>
+
 </body>
 </html>
