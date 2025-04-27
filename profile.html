@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Profilim</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .goal-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .goal-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .progress-container {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .day {
+      width: 30px;
+      height: 30px;
+      background-color: #eee;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .day.completed {
+      background-color: #4caf50;
+      color: white;
+    }
+    #back-btn {
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>👤 Profilim</h1>
+
+    <div id="goals">
+      <!-- Kullanıcının hedefleri buraya yüklenecek -->
+    </div>
+
+    <button id="back-btn">Anasayfaya Dön</button>
+  </div>
+
+  <script>
+    // Eğer giriş yapılmadıysa login sayfasına yönlendir
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    const goalsContainer = document.getElementById('goals');
+
+    // Kullanıcının hedeflerini localStorage'dan çekelim
+    const userGoals = JSON.parse(localStorage.getItem('userGoals')) || [];
+
+    const motivations = [
+      "Başlamak en zor kısmı. Başladığın için tebrikler!",
+      "Bugün küçük de olsa bir adım attın.",
+      "İstikrar, başarıdan daha değerlidir.",
+      "Her gün 1% daha iyi oluyorsun!",
+      "Alışkanlıklar seni inşa eder.",
+      "Vazgeçmek yok, devam!",
+      "Küçük zaferler büyük değişim getirir.",
+      "İnandığın sürece kazanırsın.",
+      "Düşsen bile tekrar kalk!",
+      "Bugün yapamadıysan yarın iki katı çalış.",
+      "Sen düşündüğünden daha güçlüsün.",
+      "Başarı, devam edebilmektir.",
+      "Küçük adımlar büyük farklar yaratır.",
+      "Her yeni gün bir şans.",
+      "Alışkanlıklarını sen seçersin.",
+      "Kendine inanmaya devam et!",
+      "İç motivasyonun ateşini yak.",
+      "Bu süreç seni güçlendiriyor.",
+      "Pes etme, zafer yakında.",
+      "Hayalini kurduğun hayat bir adım ötede.",
+      "Şimdi Chapter 1 tamamlandı!"
+    ];
+
+    function createGoalCard(goal) {
+      const card = document.createElement('div');
+      card.className = 'goal-card';
+
+      const title = document.createElement('div');
+      title.className = 'goal-title';
+      title.textContent = goal.name;
+      card.appendChild(title);
+
+      const progressContainer = document.createElement('div');
+      progressContainer.className = 'progress-container';
+
+      for (let i = 0; i < 21; i++) {
+        const day = document.createElement('div');
+        day.className = 'day';
+        day.textContent = i + 1;
+        if (goal.daysCompleted.includes(i)) {
+          day.classList.add('completed');
+        }
+        day.addEventListener('click', () => {
+          day.classList.toggle('completed');
+          if (day.classList.contains('completed')) {
+            goal.daysCompleted.push(i);
+          } else {
+            goal.daysCompleted = goal.daysCompleted.filter(d => d !== i);
+          }
+          saveGoals();
+        });
+        progressContainer.appendChild(day);
+      }
+
+      card.appendChild(progressContainer);
+      goalsContainer.appendChild(card);
+    }
+
+    function saveGoals() {
+      localStorage.setItem('userGoals', JSON.stringify(userGoals));
+    }
+
+    userGoals.forEach(goal => createGoalCard(goal));
+
+    // Anasayfaya dön butonu
+    document.getElementById('back-btn').addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+  </script>
+
+</body>
+</html>

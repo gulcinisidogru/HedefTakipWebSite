@@ -10,13 +10,63 @@
       background-color: #f0f2f5;
       margin: 0;
       padding: 0;
+      overflow-x: hidden; /* Yatay kaydırmayı engelle */
     }
+
     .container {
       padding: 20px;
+      transition: margin-right 0.3s ease;
     }
-    h1, h2 {
+
+    /* Hamburger Menü Stili */
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -250px; /* Başlangıçta menü görünmüyor */
+      width: 250px;
+      height: 100%;
+      background-color: #333;
+      color: white;
+      transition: right 0.3s ease;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
       text-align: center;
+      border-bottom: 1px solid #444;
+      font-size: 18px;
     }
+
+    .menu a:hover {
+      background-color: #575757;
+    }
+
+    /* Hamburger icon */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    /* Menü Açıldığında */
+    .menu.open {
+      right: 0; /* Menü sağa kayacak */
+    }
+
+    /* Diğer içeriklerin düzeni */
+    .container.shift {
+      margin-right: 250px;
+    }
+
+    /* Profil ve Ayar Menüsü */
     .goal-card {
       background-color: white;
       border-radius: 10px;
@@ -24,16 +74,19 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+
     .goal-title {
       font-size: 20px;
       margin-bottom: 10px;
     }
+
     .progress-container {
       display: flex;
       gap: 5px;
       flex-wrap: wrap;
       margin-top: 10px;
     }
+
     .day {
       width: 30px;
       height: 30px;
@@ -45,19 +98,23 @@
       cursor: pointer;
       font-size: 14px;
     }
+
     .day.completed {
       background-color: #4caf50;
       color: white;
     }
+
     #add-goal-form {
       margin-top: 30px;
       text-align: center;
     }
+
     #goal-input {
       padding: 10px;
       width: 250px;
       margin-right: 10px;
     }
+
     #logout-btn {
       margin-top: 30px;
       display: block;
@@ -70,9 +127,11 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
     .ready-goals {
       margin-top: 30px;
     }
+
     .ready-goal {
       background-color: white;
       border: 1px solid #ccc;
@@ -83,6 +142,7 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .add-button {
       background-color: #4caf50;
       color: white;
@@ -95,7 +155,17 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- Hamburger Menü İkonu -->
+  <div class="hamburger" id="hamburger">&#9776;</div>
+
+  <!-- Menü -->
+  <div class="menu" id="menu">
+    <a href="profile.html">Profil</a>
+    <a href="ayarlar.html">Ayarlar</a>
+    <a href="#" id="logout-btn">Çıkış Yap</a>
+  </div>
+
+  <div class="container" id="content">
     <h1>🎯 Hedeflerim</h1>
 
     <div class="ready-goals">
@@ -118,6 +188,17 @@
   </div>
 
   <script>
+    // Hamburger menü açma/kapama
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    const content = document.getElementById('content');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      content.classList.toggle('shift');
+      document.body.classList.toggle('menu-open');  // Menü açıldığında kaydırmayı engelle
+    });
+
     // Eğer kullanıcı giriş yapmamışsa login sayfasına yönlendir
     if (localStorage.getItem("loggedIn") !== "true") {
       window.location.href = "login.html";
@@ -160,6 +241,14 @@
       "Şimdi Chapter 1 tamamlandı!"
     ];
 
+    // Kullanıcının hedeflerini localStorage'dan al
+    const userGoals = JSON.parse(localStorage.getItem('userGoals')) || [];
+
+    // Kullanıcının hedeflerini kaydetme fonksiyonu
+    function saveGoals() {
+      localStorage.setItem('userGoals', JSON.stringify(userGoals));
+    }
+
     // Hedef kartı oluştur
     function createGoalCard(goalTitle) {
       const card = document.createElement('div');
@@ -201,6 +290,8 @@
       addButton.textContent = 'Ekle';
       addButton.addEventListener('click', () => {
         createGoalCard(goal);
+        userGoals.push({ name: goal, daysCompleted: [] });
+        saveGoals(); // Yeni hedefi kaydet
       });
 
       goalDiv.appendChild(title);
@@ -215,16 +306,17 @@
       const newGoal = goalInput.value.trim();
       if (newGoal) {
         createGoalCard(newGoal);
+        userGoals.push({ name: newGoal, daysCompleted: [] });
+        saveGoals();
         goalInput.value = '';
       }
     });
 
-    // Çıkış Yap
+    // Kullanıcı çıkış yaparsa
     document.getElementById('logout-btn').addEventListener('click', () => {
-      localStorage.removeItem('loggedIn');
+      localStorage.setItem("loggedIn", "false");
       window.location.href = "login.html";
     });
   </script>
-
 </body>
 </html>
