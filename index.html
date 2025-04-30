@@ -10,7 +10,7 @@
       background-color: #f0f2f5;
       margin: 0;
       padding: 0;
-      overflow-x: hidden; /* Yatay kaydırmayı engelle */
+      overflow-x: hidden;
     }
 
     .container {
@@ -18,11 +18,10 @@
       transition: margin-right 0.3s ease;
     }
 
-    /* Hamburger Menü Stili */
     .menu {
       position: fixed;
       top: 0;
-      right: -250px; /* Başlangıçta menü görünmüyor */
+      right: -250px;
       width: 250px;
       height: 100%;
       background-color: #333;
@@ -31,6 +30,7 @@
       padding-top: 20px;
       display: flex;
       flex-direction: column;
+      z-index: 999;
     }
 
     .menu a {
@@ -46,27 +46,23 @@
       background-color: #575757;
     }
 
-    /* Hamburger icon */
     .hamburger {
       position: fixed;
       top: 20px;
       right: 20px;
       font-size: 30px;
       cursor: pointer;
-      z-index: 100;
+      z-index: 1000;
     }
 
-    /* Menü Açıldığında */
     .menu.open {
-      right: 0; /* Menü sağa kayacak */
+      right: 0;
     }
 
-    /* Diğer içeriklerin düzeni */
     .container.shift {
       margin-right: 250px;
     }
 
-    /* Profil ve Ayar Menüsü */
     .goal-card {
       background-color: white;
       border-radius: 10px;
@@ -161,8 +157,9 @@
   <!-- Menü -->
   <div class="menu" id="menu">
     <a href="profile.html">Profil</a>
-    <a href="ayarlar.html">Ayarlar</a>
-    <a href="#" id="logout-btn">Çıkış Yap</a>
+    <a href="about.html">Hakkında</a> 
+    <a href="settings.html">Ayarlar</a>
+    <a href="#" id="logout-btn-menu">Çıkış Yap</a>
   </div>
 
   <div class="container" id="content">
@@ -170,14 +167,10 @@
 
     <div class="ready-goals">
       <h2>Hazır Hedefler</h2>
-      <div id="ready-goals-list">
-        <!-- Hazır hedefler buraya gelecek -->
-      </div>
+      <div id="ready-goals-list"></div>
     </div>
 
-    <div id="goals">
-      <!-- Eklenen hedef kartları buraya eklenecek -->
-    </div>
+    <div id="goals"></div>
 
     <form id="add-goal-form">
       <input type="text" id="goal-input" placeholder="Kendi hedefini yaz..." required>
@@ -188,7 +181,6 @@
   </div>
 
   <script>
-    // Hamburger menü açma/kapama
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
     const content = document.getElementById('content');
@@ -196,10 +188,8 @@
     hamburger.addEventListener('click', () => {
       menu.classList.toggle('open');
       content.classList.toggle('shift');
-      document.body.classList.toggle('menu-open');  // Menü açıldığında kaydırmayı engelle
     });
 
-    // Eğer kullanıcı giriş yapmamışsa login sayfasına yönlendir
     if (localStorage.getItem("loggedIn") !== "true") {
       window.location.href = "login.html";
     }
@@ -216,7 +206,6 @@
     const addGoalForm = document.getElementById('add-goal-form');
     const goalInput = document.getElementById('goal-input');
 
-    // 21 günlük motive edici mesajlar
     const motivations = [
       "Başlamak en zor kısmı. Başladığın için tebrikler!",
       "Bugün küçük de olsa bir adım attın.",
@@ -241,15 +230,12 @@
       "Şimdi Chapter 1 tamamlandı!"
     ];
 
-    // Kullanıcının hedeflerini localStorage'dan al
     const userGoals = JSON.parse(localStorage.getItem('userGoals')) || [];
 
-    // Kullanıcının hedeflerini kaydetme fonksiyonu
     function saveGoals() {
       localStorage.setItem('userGoals', JSON.stringify(userGoals));
     }
 
-    // Hedef kartı oluştur
     function createGoalCard(goalTitle) {
       const card = document.createElement('div');
       card.className = 'goal-card';
@@ -268,7 +254,7 @@
         day.textContent = i;
         day.addEventListener('click', () => {
           day.classList.toggle('completed');
-          alert(motivations[i - 1]); // Motive edici mesajı göster
+          alert(motivations[i - 1]);
         });
         progressContainer.appendChild(day);
       }
@@ -277,21 +263,20 @@
       goalsContainer.appendChild(card);
     }
 
-    // Hazır hedefleri göster
     readyGoals.forEach(goal => {
       const goalDiv = document.createElement('div');
       goalDiv.className = 'ready-goal';
-      
+
       const title = document.createElement('span');
       title.textContent = goal;
-      
+
       const addButton = document.createElement('button');
       addButton.className = 'add-button';
       addButton.textContent = 'Ekle';
       addButton.addEventListener('click', () => {
         createGoalCard(goal);
         userGoals.push({ name: goal, daysCompleted: [] });
-        saveGoals(); // Yeni hedefi kaydet
+        saveGoals();
       });
 
       goalDiv.appendChild(title);
@@ -300,7 +285,6 @@
       readyGoalsList.appendChild(goalDiv);
     });
 
-    // Kullanıcının kendi hedefini eklemesi
     addGoalForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const newGoal = goalInput.value.trim();
@@ -312,8 +296,12 @@
       }
     });
 
-    // Kullanıcı çıkış yaparsa
     document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.setItem("loggedIn", "false");
+      window.location.href = "login.html";
+    });
+
+    document.getElementById('logout-btn-menu').addEventListener('click', () => {
       localStorage.setItem("loggedIn", "false");
       window.location.href = "login.html";
     });

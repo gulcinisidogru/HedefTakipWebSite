@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ayarlar</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #back-btn {
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 20px;
+      background-color: #2196f3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>⚙️ Ayarlar</h1>
+
+    <label for="profile-pic">Profil Fotoğrafı Yükle:</label>
+    <input type="file" id="profile-pic" accept="image/*">
+
+    <label for="theme-select">Tema Seçimi:</label>
+    <select id="theme-select">
+      <option value="light">Açık Tema</option>
+      <option value="dark">Koyu Tema</option>
+    </select>
+
+    <label for="feedback">Geri Bildirim:</label>
+    <textarea id="feedback" rows="4" placeholder="Uygulama hakkında düşüncelerinizi yazın..."></textarea>
+
+    <button id="save-btn">Kaydet</button>
+    <button id="back-btn">Ana Sayfaya Dön</button>
+  </div>
+
+  <script>
+    // Eğer kullanıcı giriş yapmadıysa login sayfasına yönlendir
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // Tema seçimini localStorage'a kaydet
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const theme = document.getElementById('theme-select').value;
+      localStorage.setItem("theme", theme);
+      alert("Ayarlar kaydedildi!");
+    });
+
+    // Önceki seçim varsa göster
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.getElementById('theme-select').value = savedTheme;
+    }
+
+    // Ana sayfaya dön
+    document.getElementById('back-btn').addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
