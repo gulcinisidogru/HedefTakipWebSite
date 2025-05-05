@@ -100,6 +100,20 @@
       color: white;
     }
 
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #ddd;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #4caf50;
+      border-radius: 5px;
+    }
+
     #add-goal-form {
       margin-top: 30px;
       text-align: center;
@@ -157,7 +171,7 @@
   <!-- Menü -->
   <div class="menu" id="menu">
     <a href="profile.html">Profil</a>
-    <a href="about.html">Hakkında</a> 
+    <a href="about.html">Hakkında</a>
     <a href="settings.html">Ayarlar</a>
     <a href="#" id="logout-btn-menu">Çıkış Yap</a>
   </div>
@@ -255,12 +269,29 @@
         day.addEventListener('click', () => {
           day.classList.toggle('completed');
           alert(motivations[i - 1]);
+          updateProgressBar(card, goalTitle);
         });
         progressContainer.appendChild(day);
       }
 
       card.appendChild(progressContainer);
+
+      // İlerleme çubuğu
+      const progressBar = document.createElement('div');
+      progressBar.className = 'progress-bar';
+      const progressBarFill = document.createElement('div');
+      progressBarFill.className = 'progress-bar-fill';
+      progressBar.appendChild(progressBarFill);
+      card.appendChild(progressBar);
+
       goalsContainer.appendChild(card);
+    }
+
+    function updateProgressBar(card, goalTitle) {
+      const completedDays = card.querySelectorAll('.day.completed').length;
+      const progressBarFill = card.querySelector('.progress-bar-fill');
+      const progress = (completedDays / 21) * 100;
+      progressBarFill.style.width = `${progress}%`;
     }
 
     readyGoals.forEach(goal => {
