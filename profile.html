@@ -2,160 +2,153 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profilim</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #eef2f7;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .goal-card {
+    .profile-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
       background-color: white;
       border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    .goal-title {
-      font-size: 20px;
-      margin-bottom: 10px;
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 30px;
     }
-    .progress-container {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .day {
-      width: 30px;
-      height: 30px;
+    
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
       background-color: #eee;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      position: relative;
     }
-    .day.completed {
-      background-color: #4caf50;
+    
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-pic .edit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.5);
       color: white;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+      cursor: pointer;
     }
-    #back-btn {
-      margin-top: 20px;
+    
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-item .number {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    
+    .stat-item .label {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .back-btn {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px 20px;
-      background-color: #2196f3;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
-  <div class="container">
-    <h1>👤 Profilim</h1>
-
-    <div id="goals">
-      <!-- Kullanıcının hedefleri buraya yüklenecek -->
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-pic">
+        <div class="edit">Fotoğraf Değiştir</div>
+      </div>
+      <h2>Kullanıcı Adı</h2>
+      <p>Üyelik Tarihi: 01 Ocak 2023</p>
     </div>
-
-    <button id="back-btn">Anasayfaya Dön</button>
+    
+    <div class="stats">
+      <div class="stat-item">
+        <div class="number" id="total-goals">0</div>
+        <div class="label">Hedef</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="completed-days">0</div>
+        <div class="label">Tamamlanan Gün</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="current-chapter">1</div>
+        <div class="label">Chapter</div>
+      </div>
+    </div>
+    
+    <h3>Son Başarılar</h3>
+    <div id="achievements">
+      <p>Henüz başarı kazanmadınız. Hedeflerinize devam edin!</p>
+    </div>
+    
+    <a href="index.html" class="back-btn">Ana Sayfaya Dön</a>
   </div>
 
   <script>
-    // Eğer giriş yapılmadıysa login sayfasına yönlendir
-    if (localStorage.getItem("loggedIn") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    const goalsContainer = document.getElementById('goals');
-
-    // Kullanıcının hedeflerini localStorage'dan çekelim
-    const userGoals = JSON.parse(localStorage.getItem('userGoals')) || [];
-
-    const motivations = [
-      "Başlamak en zor kısmı. Başladığın için tebrikler!",
-      "Bugün küçük de olsa bir adım attın.",
-      "İstikrar, başarıdan daha değerlidir.",
-      "Her gün 1% daha iyi oluyorsun!",
-      "Alışkanlıklar seni inşa eder.",
-      "Vazgeçmek yok, devam!",
-      "Küçük zaferler büyük değişim getirir.",
-      "İnandığın sürece kazanırsın.",
-      "Düşsen bile tekrar kalk!",
-      "Bugün yapamadıysan yarın iki katı çalış.",
-      "Sen düşündüğünden daha güçlüsün.",
-      "Başarı, devam edebilmektir.",
-      "Küçük adımlar büyük farklar yaratır.",
-      "Her yeni gün bir şans.",
-      "Alışkanlıklarını sen seçersin.",
-      "Kendine inanmaya devam et!",
-      "İç motivasyonun ateşini yak.",
-      "Bu süreç seni güçlendiriyor.",
-      "Pes etme, zafer yakında.",
-      "Hayalini kurduğun hayat bir adım ötede.",
-      "Şimdi Chapter 1 tamamlandı!"
-    ];
-
-    function createGoalCard(goal) {
-      const card = document.createElement('div');
-      card.className = 'goal-card';
-
-      const title = document.createElement('div');
-      title.className = 'goal-title';
-      title.textContent = goal.name;
-      card.appendChild(title);
-
-      const progressContainer = document.createElement('div');
-      progressContainer.className = 'progress-container';
-
-      for (let i = 0; i < 21; i++) {
-        const day = document.createElement('div');
-        day.className = 'day';
-        day.textContent = i + 1;
-        if (goal.daysCompleted.includes(i)) {
-          day.classList.add('completed');
-        }
-        day.addEventListener('click', () => {
-          day.classList.toggle('completed');
-          if (day.classList.contains('completed')) {
-            goal.daysCompleted.push(i);
-          } else {
-            goal.daysCompleted = goal.daysCompleted.filter(d => d !== i);
-          }
-          saveGoals();
-        });
-        progressContainer.appendChild(day);
+    document.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('loggedIn') !== 'true') {
+        window.location.href = 'login.html';
       }
-
-      card.appendChild(progressContainer);
-      goalsContainer.appendChild(card);
-    }
-
-    function saveGoals() {
-      localStorage.setItem('userGoals', JSON.stringify(userGoals));
-    }
-
-    userGoals.forEach(goal => createGoalCard(goal));
-
-    // Anasayfaya dön butonu
-    document.getElementById('back-btn').addEventListener('click', () => {
-      window.location.href = "index.html";
+      
+      // Profil istatistiklerini güncelle
+      const goals = JSON.parse(localStorage.getItem('goals')) || [];
+      const totalDays = goals.reduce((sum, goal) => sum + goal.daysCompleted.length, 0);
+      
+      document.getElementById('total-goals').textContent = goals.length;
+      document.getElementById('completed-days').textContent = totalDays;
+      
+      // Chapter hesapla
+      let chapter = 1;
+      if (totalDays >= 42) chapter = 3;
+      else if (totalDays >= 21) chapter = 2;
+      
+      document.getElementById('current-chapter').textContent = chapter;
+      
+      // Başarıları kontrol et
+      const achievements = [];
+      if (goals.length >= 3) achievements.push('3 farklı hedef belirlediniz!');
+      if (totalDays >= 7) achievements.push('7 gün üst üste devam ettiniz!');
+      if (totalDays >= 21) achievements.push('İlk Chapter\'ı tamamladınız!');
+      
+      const achievementsContainer = document.getElementById('achievements');
+      if (achievements.length > 0) {
+        achievementsContainer.innerHTML = '<ul>' + achievements.map(a => `<li>${a}</li>`).join('') + '</ul>';
+      }
     });
   </script>
-
 </body>
 </html>

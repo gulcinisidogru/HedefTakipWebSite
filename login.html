@@ -2,33 +2,86 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giriş Yap</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .login-container button:hover {
+      background-color: #45a049;
+    }
+    
+    .login-container p {
+      margin-top: 20px;
+      color: #666;
+    }
+    
+    .login-container a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Giriş Yap</h2>
+  <div class="login-container">
+    <h2>21 Günlük Hedef Takip</h2>
     <form id="login-form">
-      <input type="email" id="email" placeholder="E-posta" required />
-      <input type="password" id="password" placeholder="Şifre" required />
-      <button type="submit">Giriş</button>
+      <input type="email" id="email" placeholder="E-posta" required>
+      <input type="password" id="password" placeholder="Şifre" required>
+      <button type="submit">Giriş Yap</button>
     </form>
+    <p>Hesabınız yok mu? <a href="signup.html">Kayıt Olun</a></p>
     <p id="login-message"></p>
   </div>
 
   <script>
-    document.getElementById("login-form").addEventListener("submit", function(e) {
+    document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      // Geçici olarak giriş kontrolü (örnek kullanıcı)
-      if (email === "test@test.com" && password === "123456") {
-        localStorage.setItem("loggedIn", "true");
-        window.location.href = "index.html";
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Basit giriş kontrolü (gerçek uygulamada backend olmalı)
+      if (email && password) {
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html';
       } else {
-        document.getElementById("login-message").textContent = "Hatalı giriş bilgileri!";
+        document.getElementById('login-message').textContent = 'Lütfen tüm alanları doldurun';
       }
     });
   </script>

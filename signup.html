@@ -2,19 +2,98 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kayıt Ol</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .signup-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .signup-container h2 {
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    
+    .signup-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .signup-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .signup-container button:hover {
+      background-color: #45a049;
+    }
+    
+    .signup-container p {
+      margin-top: 20px;
+      color: #666;
+    }
+    
+    .signup-container a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📝 Kayıt Ol</h1>
-    <form>
-      <input type="email" placeholder="E-posta" required />
-      <input type="password" placeholder="Şifre" required />
-      <input type="password" placeholder="Şifre tekrar" required />
+  <div class="signup-container">
+    <h2>Yeni Hesap Oluştur</h2>
+    <form id="signup-form">
+      <input type="text" id="name" placeholder="Adınız" required>
+      <input type="email" id="email" placeholder="E-posta" required>
+      <input type="password" id="password" placeholder="Şifre" required>
+      <input type="password" id="confirm-password" placeholder="Şifre Tekrar" required>
       <button type="submit">Kayıt Ol</button>
     </form>
-    <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a></p>
+    <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yapın</a></p>
+    <p id="signup-message"></p>
   </div>
+
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      // Basit kontrol (gerçek uygulamada daha detaylı validation olmalı)
+      if (password !== confirmPassword) {
+        document.getElementById('signup-message').textContent = 'Şifreler eşleşmiyor';
+        return;
+      }
+      
+      if (name && email && password) {
+        // Kullanıcıyı kaydet (gerçek uygulamada backend'e gönderilmeli)
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('signup-message').textContent = 'Lütfen tüm alanları doldurun';
+      }
+    });
+  </script>
 </body>
 </html>

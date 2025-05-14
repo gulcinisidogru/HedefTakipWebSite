@@ -2,340 +2,66 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Hedeflerim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>21 Günlük Hedefler</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-
-    .container {
-      padding: 20px;
-      transition: margin-right 0.3s ease;
-    }
-
-    .menu {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: #333;
-      color: white;
-      transition: right 0.3s ease;
-      padding-top: 20px;
-      display: flex;
-      flex-direction: column;
-      z-index: 999;
-    }
-
-    .menu a {
-      color: white;
-      text-decoration: none;
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid #444;
-      font-size: 18px;
-    }
-
-    .menu a:hover {
-      background-color: #575757;
-    }
-
-    .hamburger {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 30px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .menu.open {
-      right: 0;
-    }
-
-    .container.shift {
-      margin-right: 250px;
-    }
-
-    .goal-card {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .goal-title {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .progress-container {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .day {
-      width: 30px;
-      height: 30px;
-      background-color: #eee;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .day.completed {
-      background-color: #4caf50;
-      color: white;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background-color: #ddd;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background-color: #4caf50;
-      border-radius: 5px;
-    }
-
-    #add-goal-form {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    #goal-input {
-      padding: 10px;
-      width: 250px;
-      margin-right: 10px;
-    }
-
-    #logout-btn {
-      margin-top: 30px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px 20px;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .ready-goals {
-      margin-top: 30px;
-    }
-
-    .ready-goal {
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .add-button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
-
-  <!-- Hamburger Menü İkonu -->
-  <div class="hamburger" id="hamburger">&#9776;</div>
-
-  <!-- Menü -->
-  <div class="menu" id="menu">
-    <a href="profile.html">Profil</a>
-    <a href="about.html">Hakkında</a>
-    <a href="settings.html">Ayarlar</a>
-    <a href="#" id="logout-btn-menu">Çıkış Yap</a>
+  <!-- Hamburger Menü -->
+  <div class="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
+  
+  <nav class="main-menu">
+    <ul>
+      <li><a href="profile.html">👤 Profilim</a></li>
+      <li><a href="about.html">ℹ️ Hakkında</a></li>
+      <li><a href="settings.html">⚙️ Ayarlar</a></li>
+      <li><a href="#" id="logout">🚪 Çıkış Yap</a></li>
+    </ul>
+  </nav>
 
-  <div class="container" id="content">
-    <h1>🎯 Hedeflerim</h1>
+  <div class="container">
+    <header>
+      <h1 id="chapter-title">Chapter 1: Başlangıç</h1>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span id="progress-text">0/21 gün</span>
+      </div>
+    </header>
 
-    <div class="ready-goals">
-      <h2>Hazır Hedefler</h2>
-      <div id="ready-goals-list"></div>
+    <div class="motivation-card">
+      <p id="motivation-text">"Küçük adımlar büyük değişimler getirir. Bugün 1% daha iyi ol!"</p>
     </div>
 
-    <div id="goals"></div>
+    <div class="goals-container">
+      <h2>Hedeflerim</h2>
+      <div id="goals-list">
+        <!-- Hedefler buraya eklenecek -->
+      </div>
+    </div>
 
-    <form id="add-goal-form">
-      <input type="text" id="goal-input" placeholder="Kendi hedefini yaz..." required>
-      <button type="submit">Hedef Ekle</button>
-    </form>
+    <div class="add-goal">
+      <input type="text" id="new-goal" placeholder="Yeni hedef ekle (Örn: Her gün 10 sayfa kitap oku)">
+      <button id="add-goal-btn">+ Ekle</button>
+    </div>
 
-    <button id="logout-btn">Çıkış Yap</button>
+    <div class="stats">
+      <div class="stat-card">
+        <h3>Toplam Tamamlanan</h3>
+        <p id="total-completed">0 gün</p>
+      </div>
+      <div class="stat-card">
+        <h3>Devam Eden</h3>
+        <p id="current-streak">0 gün</p>
+      </div>
+    </div>
   </div>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.getElementById('menu');
-    const content = document.getElementById('content');
-
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      content.classList.toggle('shift');
-    });
-
-    if (localStorage.getItem("loggedIn") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    const readyGoals = [
-      "Her gün diş fırçalamak",
-      "Cilt bakımı yapmak",
-      "Yürüyüşe çıkmak",
-      "Her gün kitap okumak"
-    ];
-
-    const goalsContainer = document.getElementById('goals');
-    const readyGoalsList = document.getElementById('ready-goals-list');
-    const addGoalForm = document.getElementById('add-goal-form');
-    const goalInput = document.getElementById('goal-input');
-
-    const motivations = [
-      "Başlamak en zor kısmı. Başladığın için tebrikler!",
-      "Bugün küçük de olsa bir adım attın.",
-      "İstikrar, başarıdan daha değerlidir.",
-      "Her gün 1% daha iyi oluyorsun!",
-      "Alışkanlıklar seni inşa eder.",
-      "Vazgeçmek yok, devam!",
-      "Küçük zaferler büyük değişim getirir.",
-      "İnandığın sürece kazanırsın.",
-      "Düşsen bile tekrar kalk!",
-      "Bugün yapamadıysan yarın iki katı çalış.",
-      "Sen düşündüğünden daha güçlüsün.",
-      "Başarı, devam edebilmektir.",
-      "Küçük adımlar büyük farklar yaratır.",
-      "Her yeni gün bir şans.",
-      "Alışkanlıklarını sen seçersin.",
-      "Kendine inanmaya devam et!",
-      "İç motivasyonun ateşini yak.",
-      "Bu süreç seni güçlendiriyor.",
-      "Pes etme, zafer yakında.",
-      "Hayalini kurduğun hayat bir adım ötede.",
-      "Şimdi Chapter 1 tamamlandı!"
-    ];
-
-    const userGoals = JSON.parse(localStorage.getItem('userGoals')) || [];
-
-    function saveGoals() {
-      localStorage.setItem('userGoals', JSON.stringify(userGoals));
-    }
-
-    function createGoalCard(goalTitle) {
-      const card = document.createElement('div');
-      card.className = 'goal-card';
-
-      const title = document.createElement('div');
-      title.className = 'goal-title';
-      title.textContent = goalTitle;
-      card.appendChild(title);
-
-      const progressContainer = document.createElement('div');
-      progressContainer.className = 'progress-container';
-
-      for (let i = 1; i <= 21; i++) {
-        const day = document.createElement('div');
-        day.className = 'day';
-        day.textContent = i;
-        day.addEventListener('click', () => {
-          day.classList.toggle('completed');
-          alert(motivations[i - 1]);
-          updateProgressBar(card, goalTitle);
-        });
-        progressContainer.appendChild(day);
-      }
-
-      card.appendChild(progressContainer);
-
-      // İlerleme çubuğu
-      const progressBar = document.createElement('div');
-      progressBar.className = 'progress-bar';
-      const progressBarFill = document.createElement('div');
-      progressBarFill.className = 'progress-bar-fill';
-      progressBar.appendChild(progressBarFill);
-      card.appendChild(progressBar);
-
-      goalsContainer.appendChild(card);
-    }
-
-    function updateProgressBar(card, goalTitle) {
-      const completedDays = card.querySelectorAll('.day.completed').length;
-      const progressBarFill = card.querySelector('.progress-bar-fill');
-      const progress = (completedDays / 21) * 100;
-      progressBarFill.style.width = `${progress}%`;
-    }
-
-    readyGoals.forEach(goal => {
-      const goalDiv = document.createElement('div');
-      goalDiv.className = 'ready-goal';
-
-      const title = document.createElement('span');
-      title.textContent = goal;
-
-      const addButton = document.createElement('button');
-      addButton.className = 'add-button';
-      addButton.textContent = 'Ekle';
-      addButton.addEventListener('click', () => {
-        createGoalCard(goal);
-        userGoals.push({ name: goal, daysCompleted: [] });
-        saveGoals();
-      });
-
-      goalDiv.appendChild(title);
-      goalDiv.appendChild(addButton);
-
-      readyGoalsList.appendChild(goalDiv);
-    });
-
-    addGoalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newGoal = goalInput.value.trim();
-      if (newGoal) {
-        createGoalCard(newGoal);
-        userGoals.push({ name: newGoal, daysCompleted: [] });
-        saveGoals();
-        goalInput.value = '';
-      }
-    });
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      localStorage.setItem("loggedIn", "false");
-      window.location.href = "login.html";
-    });
-
-    document.getElementById('logout-btn-menu').addEventListener('click', () => {
-      localStorage.setItem("loggedIn", "false");
-      window.location.href = "login.html";
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

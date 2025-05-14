@@ -1,98 +1,297 @@
+/* Temel Stiller */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
-  
+  background-color: #f5f7fa;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Chapter Temaları */
+body.chapter-1 {
+  --primary-color: #4CAF50;
+  --secondary-color: #E8F5E9;
+  --accent-color: #2E7D32;
+}
+
+body.chapter-2 {
+  --primary-color: #2196F3;
+  --secondary-color: #E3F2FD;
+  --accent-color: #1565C0;
+}
+
+body.chapter-3 {
+  --primary-color: #9C27B0;
+  --secondary-color: #F3E5F5;
+  --accent-color: #6A1B9A;
+}
+
+/* Menü Stilleri */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-btn span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  z-index: 999;
+  transition: right 0.3s ease;
+  padding: 80px 20px 20px;
+}
+
+.main-menu.active {
+  right: 0;
+}
+
+.main-menu ul {
+  list-style: none;
+}
+
+.main-menu li {
+  margin-bottom: 15px;
+}
+
+.main-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.main-menu a:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* Başlık ve İlerleme Çubuğu */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#chapter-title {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+#progress-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Motivasyon Kartı */
+.motivation-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border-left: 4px solid var(--primary-color);
+}
+
+.motivation-card p {
+  font-style: italic;
+  color: #555;
+  text-align: center;
+}
+
+/* Hedefler Listesi */
+.goals-container {
+  margin-bottom: 30px;
+}
+
+.goals-container h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.goal-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-card h3 {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.day {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.day.completed {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.day:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.delete-goal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Yeni Hedef Ekleme */
+.add-goal {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.add-goal input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.add-goal button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.add-goal button:hover {
+  background-color: var(--accent-color);
+}
+
+/* İstatistikler */
+.stats {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.stat-card {
+  flex: 1;
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 600px) {
   .container {
-    max-width: 500px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 15px;
   }
   
-  h1 {
-    text-align: center;
-    color: #333;
+  .stats {
+    flex-direction: column;
   }
   
-  form {
-    display: flex;
-    margin-bottom: 20px;
+  .main-menu {
+    width: 250px;
   }
-  
-  input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px 0 0 8px;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #e6f7e6;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  li.completed {
-    text-decoration: line-through;
-    color: gray;
-    background-color: #ddd;
-  }
-  
-  li button {
-    background-color: #f44336;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  li button:hover {
-    background-color: #da190b;
-  }
-  
-  .profile-photo {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .profile-photo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .profile-photo img:hover {
-    transform: scale(1.1); /* Hover efekti ile biraz büyütme */
-  }
-  
+}
