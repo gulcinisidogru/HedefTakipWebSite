@@ -212,6 +212,18 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+/* style.css en üstüne ekleyin */
+#add-goal-btn {
+  all: unset; /* Tüm stilleri sıfırla */
+  display: inline-block !important;
+  background: #4CAF50 !important;
+  color: white !important;
+  padding: 12px 24px !important;
+  border-radius: 4px !important;
+}
+
+
+
 .delete-goal {
   position: absolute;
   top: 10px;
@@ -252,6 +264,17 @@ header {
 .add-goal button:hover {
   background-color: var(--accent-color);
 }
+
+#add-goal-btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: static !important;
+}
+
+
+
+
 
 /* İstatistikler */
 .stats {
