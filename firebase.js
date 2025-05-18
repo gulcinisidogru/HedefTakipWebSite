@@ -13,10 +13,19 @@ const firebaseConfig = {
   measurementId: "G-S205R6J18R"
 };
 
+
+
+
+
+
 // Firebase başlat
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 // Global erişim için
-window.db = db;
+//window.db = db;
+
+
+
+export { db }; 
