@@ -275,6 +275,160 @@ header {
 
 
 
+.goal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.goal-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.goal-text {
+  font-weight: 500;
+}
+
+.goal-date {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.delete-goal {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #ff4444;
+}
+
+.loading, .no-goals, .error {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
+
+
+
+/* Hamburger Menü */
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 100;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.menu-btn span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  transition: all 0.3s;
+}
+
+.menu-btn.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.main-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  transition: right 0.3s;
+  z-index: 99;
+  padding-top: 60px;
+}
+
+.main-menu.show {
+  right: 0;
+}
+
+/* Hedef Öğeleri */
+.goal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+}
+
+.goal-item:hover {
+  background: #f9f9f9;
+}
+
+.goal-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.goal-text {
+  flex-grow: 1;
+}
+
+.goal-date {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #ff4444;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* İlerleme Çubuğu */
+.progress-container {
+  width: 100%;
+  background: #f0f0f0;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.progress-fill {
+  height: 10px;
+  border-radius: 10px;
+  background: #4CAF50;
+  width: 0%;
+  transition: width 0.5s;
+}
+
+
+
+
+
+
+
+
+
 
 /* İstatistikler */
 .stats {

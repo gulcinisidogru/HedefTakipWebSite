@@ -1,5 +1,13 @@
 import { db } from './firebase.js';
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
+import { 
+  collection, 
+  addDoc, 
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
 
 // Firebase bağlantı kontrolü
 console.log("Firebase modülleri yüklendi!");
@@ -7,19 +15,35 @@ console.log("Firebase modülleri yüklendi!");
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM yüklendi!");
   
+  // Elementler
   const addGoalBtn = document.getElementById("add-goal-btn");
   const newGoalInput = document.getElementById("new-goal");
-  const goalsList = document.getElementById("goals-list"); // Hedef listesi elementi
+  const goalsList = document.getElementById("goals-list");
+  const totalCompletedElement = document.getElementById("total-completed");
+  const currentStreakElement = document.getElementById("current-streak");
+  const menuBtn = document.querySelector(".menu-btn");
+  const mainMenu = document.querySelector(".main-menu");
+  const progressFill = document.getElementById("progress-fill");
+  const progressText = document.getElementById("progress-text");
 
-  console.log("Buton element:", addGoalBtn);
+  // Hamburger Menü Toggle
+  menuBtn.addEventListener("click", () => {
+    mainMenu.classList.toggle("show");
+    menuBtn.classList.toggle("open");
+  });
 
-  // Hedef ekleme fonksiyonu
+  // Gerçek zamanlı veri dinleyici
+  function setupRealTimeListener() {
+    onSnapshot(collection(db, "hedefler"), (snapshot) => {
+      loadGoals();
+      updateStats();
+    });
+  }
+
+  // Hedef ekleme
   addGoalBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-    console.log("Butona tıklandı!");
-
     const goalText = newGoalInput.value.trim();
-    console.log("Girilen metin:", goalText);
 
     if (!goalText) {
       alert("Lütfen bir hedef girin!");
@@ -27,46 +51,83 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      console.log("Firestore'a veri ekleniyor...");
-      const docRef = await addDoc(collection(db, "hedefler"), {
+      await addDoc(collection(db, "hedefler"), {
         baslik: goalText,
         tarih: new Date(),
         tamamlandi: false
       });
-      
-      console.log("Başarıyla eklendi! ID:", docRef.id);
       newGoalInput.value = "";
-      
-      // Yeni hedefi listeye ekle
-      addGoalToList(goalText, docRef.id);
-      
     } catch (error) {
       console.error("Hata:", error);
       alert("Hedef eklenirken hata oluştu: " + error.message);
     }
   });
 
-  // Hedefi listeye ekleme fonksiyonu
-  function addGoalToList(goalText, goalId) {
-    const goalItem = document.createElement("div");
-    goalItem.className = "goal-item";
-    goalItem.innerHTML = `
-      <input type="checkbox" id="goal-${goalId}">
-      <label for="goal-${goalId}">${goalText}</label>
-    `;
-    goalsList.appendChild(goalItem);
-  }
-
-  // Sayfa yüklendiğinde mevcut hedefleri getir
+  // Hedef listeleme
   async function loadGoals() {
     try {
-      // Bu kısmı daha sonra Firestore'dan veri çekmek için doldurabilirsiniz
-      console.log("Mevcut hedefler yükleniyor...");
+      const querySnapshot = await getDocs(collection(db, "hedefler"));
+      goalsList.innerHTML = "";
+      
+      querySnapshot.forEach((doc) => {
+        const goalData = doc.data();
+        const goalItem = document.createElement("div");
+        goalItem.className = "goal-item";
+        goalItem.dataset.id = doc.id;
+        
+        const formattedDate = goalData.tarih?.toDate().toLocaleDateString('tr-TR') || "Yeni";
+        
+        goalItem.innerHTML = `
+          <div class="goal-content">
+            <input type="checkbox" id="goal-${doc.id}" ${goalData.tamamlandi ? 'checked' : ''}>
+            <label for="goal-${doc.id}">
+              <span class="goal-text">${goalData.baslik}</span>
+              <span class="goal-date">${formattedDate}</span>
+            </label>
+          </div>
+          <button class="delete-btn" data-id="${doc.id}">×</button>
+        `;
+        
+        // Tamamlama durumu güncelleme
+        goalItem.querySelector(`input`).addEventListener('change', async (e) => {
+          await updateDoc(doc(db, "hedefler", doc.id), {
+            tamamlandi: e.target.checked
+          });
+        });
+        
+        // Silme butonu
+        goalItem.querySelector('.delete-btn').addEventListener('click', async () => {
+          if (confirm("Bu hedefi silmek istediğinize emin misiniz?")) {
+            await deleteDoc(doc(db, "hedefler", doc.id));
+          }
+        });
+        
+        goalsList.appendChild(goalItem);
+      });
+      
     } catch (error) {
-      console.error("Hedefler yüklenirken hata:", error);
+      console.error("Hata:", error);
+      goalsList.innerHTML = `<div class="error">Hedefler yüklenirken hata: ${error.message}</div>`;
     }
   }
 
-  // Sayfa yüklendiğinde hedefleri yükle
+  // İstatistikleri güncelle
+  async function updateStats() {
+    const snapshot = await getDocs(collection(db, "hedefler"));
+    const total = snapshot.size;
+    const completed = snapshot.docs.filter(doc => doc.data().tamamlandi).length;
+    
+    totalCompletedElement.textContent = `${completed} gün`;
+    currentStreakElement.textContent = `${total} gün`;
+    
+    // İlerleme çubuğu güncelleme
+    const progressPercent = Math.min(Math.round((completed / 21) * 100), 100);
+    progressFill.style.width = `${progressPercent}%`;
+    progressText.textContent = `${completed}/21 gün`;
+  }
+
+  // Sayfa yüklendiğinde çalıştır
   loadGoals();
+  updateStats();
+  setupRealTimeListener();
 });
