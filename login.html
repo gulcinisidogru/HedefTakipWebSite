@@ -15,12 +15,12 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       text-align: center;
     }
-    
+
     .login-container h2 {
       margin-bottom: 20px;
       color: #4CAF50;
     }
-    
+
     .login-container input {
       width: 100%;
       padding: 12px;
@@ -29,7 +29,7 @@
       border-radius: 5px;
       font-size: 16px;
     }
-    
+
     .login-container button {
       width: 100%;
       padding: 12px;
@@ -41,19 +41,25 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    
+
     .login-container button:hover {
       background-color: #45a049;
     }
-    
+
     .login-container p {
       margin-top: 20px;
       color: #666;
     }
-    
+
     .login-container a {
       color: #4CAF50;
       text-decoration: none;
+    }
+
+    #login-message {
+      color: #f44336;
+      margin-top: 10px;
+      min-height: 20px;
     }
   </style>
 </head>
@@ -69,19 +75,54 @@
     <p id="login-message"></p>
   </div>
 
-  <script>
-    document.getElementById('login-form').addEventListener('submit', function(e) {
+  <script type="module">
+    import { auth } from './firebase.js';
+    import { signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js';
+
+    const loginForm = document.getElementById('login-form');
+    const messageElement = document.getElementById('login-message');
+
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      
-      // Basit giriş kontrolü (gerçek uygulamada backend olmalı)
-      if (email && password) {
+
+      try {
+        messageElement.textContent = "Giriş yapılıyor...";
+        await signInWithEmailAndPassword(auth, email, password);
         localStorage.setItem('loggedIn', 'true');
         window.location.href = 'index.html';
-      } else {
-        document.getElementById('login-message').textContent = 'Lütfen tüm alanları doldurun';
+      } catch (error) {
+        console.error("Giriş hatası:", error);
+        let errorMessage = "Giriş yapılamadı";
+        switch(error.code) {
+          case "auth/invalid-email":
+            errorMessage = "Geçersiz e-posta formatı";
+            break;
+          case "auth/user-disabled":
+            errorMessage = "Bu hesap devre dışı bırakılmış";
+            break;
+          case "auth/user-not-found":
+            errorMessage = "Bu e-posta ile kayıtlı kullanıcı bulunamadı";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "Hatalı şifre";
+            break;
+          case "auth/too-many-requests":
+            errorMessage = "Çok fazla hatalı giriş denemesi. Lütfen daha sonra tekrar deneyin";
+            break;
+          default:
+            errorMessage = error.message;
+        }
+        messageElement.textContent = errorMessage;
+      }
+    });
+
+    // Eğer kullanıcı zaten giriş yaptıysa, direkt yönlendir
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = 'index.html';
       }
     });
   </script>

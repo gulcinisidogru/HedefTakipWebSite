@@ -1,7 +1,6 @@
-// firebase.js - Modül olmayan versiyon
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-analytics.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBTWJdjMtqx0HDYY2xM6CzwSQKQfrVniY0",
@@ -13,19 +12,10 @@ const firebaseConfig = {
   measurementId: "G-S205R6J18R"
 };
 
-
-
-
-
-
 // Firebase başlat
 const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Global erişim için
-//window.db = db;
-
-
-
-export { db }; 
+// ✅ Gerekli fonksiyonları dışa aktar
+export { db, auth, onAuthStateChanged };

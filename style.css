@@ -424,6 +424,50 @@ header {
 
 
 
+/* Gün Sayacı */
+.day-counter {
+  display: inline-block;
+  min-width: 50px;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Tamamlanan Hedefler */
+.goal-item.completed .goal-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* Silme Butonu Düzeltmesi */
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #ff4444;
+  cursor: pointer;
+  padding: 0 10px;
+  margin-left: 10px;
+}
+
+.delete-btn:hover {
+  color: #cc0000;
+  transform: scale(1.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
