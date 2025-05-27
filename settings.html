@@ -5,112 +5,142 @@
   <title>Ayarlar</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Genel body stilini tanımlar */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Inter', Arial, sans-serif; /* Font Inter olarak güncellendi */
+      background-color: #f5f7fa; /* Arka plan rengi tema ile uyumlu */
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease; /* Tema geçişleri için */
     }
 
+    /* Ana konteyner stilini tanımlar */
     .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background-color: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px; /* Maksimum genişlik */
+      margin: 40px auto; /* Üstten ve alttan 40px boşluk, yatayda ortala */
+      background-color: white; /* Arka plan rengi */
+      padding: 30px; /* İç boşluk */
+      border-radius: 12px; /* Köşe yuvarlaklığı */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Hafif gölge efekti */
     }
 
+    /* Başlık stilini tanımlar */
     h1 {
-      text-align: center;
-      margin-bottom: 30px;
+      text-align: center; /* Metni ortala */
+      margin-bottom: 30px; /* Alttan boşluk */
+      color: var(--primary-color); /* Tema ana rengini kullanır */
     }
 
+    /* Ayar grubu stilini tanımlar */
+    .setting-group {
+      margin-bottom: 25px; /* Alttan boşluk */
+    }
+
+    /* Etiket stilini tanımlar */
     label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
+      display: block; /* Bloğun tamamını kaplar */
+      margin-bottom: 10px; /* Alttan boşluk */
+      font-weight: bold; /* Kalın yazı */
+      color: #555; /* Gri yazı rengi */
     }
 
-    input[type="file"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
+    /* Seçim kutusu stilini tanımlar */
+    select {
+      width: 100%; /* Tam genişlik */
+      padding: 12px; /* İç boşluk */
+      border: 1px solid #ddd; /* İnce gri kenarlık */
+      border-radius: 8px; /* Köşe yuvarlaklığı */
+      font-size: 16px; /* Yazı tipi boyutu */
+      background-color: #fcfcfc; /* Açık gri arka plan rengi */
     }
 
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
+    /* Buton grubu stilini tanımlar */
+    .button-group {
+      display: flex; /* Flexbox düzeni kullan */
+      justify-content: center; /* Yatayda ortala */
+      gap: 15px; /* Butonlar arası boşluk */
+      margin-top: 30px; /* Üstten boşluk */
     }
 
-    button:hover {
-      background-color: #45a049;
+    /* Genel buton stilini tanımlar */
+    .button-group button {
+      padding: 12px 25px; /* İç boşluk */
+      border: none; /* Kenarlık yok */
+      border-radius: 8px; /* Köşe yuvarlaklığı */
+      font-size: 16px; /* Yazı tipi boyutu */
+      cursor: pointer; /* Fare imleci işaretçi olur */
+      transition: background-color 0.3s ease; /* Arka plan rengi geçişi */
     }
 
-    #back-btn {
+    /* Kaydet butonunun stilini tanımlar */
+    .button-group .save-button {
+      background-color: var(--primary-color); /* Tema ana rengini kullanır */
+      color: white; /* Beyaz yazı rengi */
+    }
+
+    /* Kaydet butonunun hover stilini tanımlar */
+    .button-group .save-button:hover {
+      background-color: var(--accent-color); /* Tema vurgu rengini kullanır */
+    }
+
+    /* Ana sayfaya dön butonunun stilini tanımlar */
+    .button-group .back-button {
+      background-color: #6c757d; /* Gri arka plan rengi */
+      color: white; /* Beyaz yazı rengi */
+    }
+
+    /* Ana sayfaya dön butonunun hover stilini tanımlar */
+    .button-group .back-button:hover {
+      background-color: #5a6268; /* Koyu gri arka plan rengi */
+    }
+
+    /* Mesaj kutusu stilini tanımlar */
+    .settings-message {
+      text-align: center;
       margin-top: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px 20px;
-      background-color: #2196f3;
+      padding: 10px;
+      border-radius: 8px;
+      opacity: 0; /* Başlangıçta gizli */
+      transition: opacity 0.3s ease; /* Geçiş efekti */
+    }
+
+    .settings-message.show {
+      opacity: 1; /* Görünür yap */
+    }
+
+    .settings-message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .settings-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>⚙️ Ayarlar</h1>
+    <h1>Ayarlar</h1>
 
-    <label for="profile-pic">Profil Fotoğrafı Yükle:</label>
-    <input type="file" id="profile-pic" accept="image/*">
+    <div class="setting-group">
+      <label for="theme-select">Tema Seçimi:</label>
+      <select id="theme-select">
+        <option value="default">Varsayılan (Açık)</option>
+        <option value="dark">Koyu Tema</option>
+        </select>
+    </div>
 
-    <label for="theme-select">Tema Seçimi:</label>
-    <select id="theme-select">
-      <option value="light">Açık Tema</option>
-      <option value="dark">Koyu Tema</option>
-    </select>
+    <div class="button-group">
+      <button id="save-settings" class="save-button">Ayarları Kaydet</button>
+      <button id="back-to-home" class="back-button">Ana Sayfaya Dön</button>
+    </div>
 
-    <label for="feedback">Geri Bildirim:</label>
-    <textarea id="feedback" rows="4" placeholder="Uygulama hakkında düşüncelerinizi yazın..."></textarea>
-
-    <button id="save-btn">Kaydet</button>
-    <button id="back-btn">Ana Sayfaya Dön</button>
+    <div id="settings-message" class="settings-message"></div>
   </div>
 
-  <script>
-    // Eğer kullanıcı giriş yapmadıysa login sayfasına yönlendir
-    if (localStorage.getItem("loggedIn") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    // Tema seçimini localStorage'a kaydet
-    document.getElementById('save-btn').addEventListener('click', () => {
-      const theme = document.getElementById('theme-select').value;
-      localStorage.setItem("theme", theme);
-      alert("Ayarlar kaydedildi!");
-    });
-
-    // Önceki seçim varsa göster
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      document.getElementById('theme-select').value = savedTheme;
-    }
-
-    // Ana sayfaya dön
-    document.getElementById('back-btn').addEventListener('click', () => {
-      window.location.href = "index.html";
-    });
-  </script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

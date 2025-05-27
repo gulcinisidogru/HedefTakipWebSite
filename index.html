@@ -3,29 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>21 Günlük Hedefler</title>
+  <title>21 Günlük Alışkanlıklar</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Firebase SDK -->
-  <!--<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script> -->
-
-
-<!-- Bunu ekle -->
-<script type="module" src="app.js"></script>
-
-
-
-
-
+  <script type="module" src="app.js"></script>
 </head>
 <body>
-  <!-- Hamburger Menü -->
   <div class="menu-btn">
     <span></span>
     <span></span>
     <span></span>
   </div>
-  
+
   <nav class="main-menu">
     <ul>
       <li><a href="profile.html">👤 Profilim</a></li>
@@ -38,45 +26,40 @@
   <div class="container">
     <header>
       <h1 id="chapter-title">Chapter 1: Başlangıç</h1>
-      <div class="progress-container">
+      <div class="progress-container global-progress">
         <div class="progress-bar" id="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
         <span id="progress-text">0/21 gün</span>
       </div>
+      <div class="motivation-section">
+        <button id="show-motivation-btn">Günün Motivasyonunu Gör!</button>
+        <p id="motivation-quote"></p>
+      </div>
+      <div id="app-message" class="app-message"></div>
     </header>
 
-    <div class="motivation-card">
-      <p id="motivation-text">"Küçük adımlar büyük değişimler getirir. Bugün 1% daha iyi ol!"</p>
+    <section id="add-goal-section" class="add-goal-section">
+        <h2>Yeni Alışkanlık Ekle</h2>
+        <form id="add-goal-form" class="add-goal">
+            <input type="text" id="new-goal-title" placeholder="Alışkanlık Başlığı (örn: Günde 8 Bardak Su İç)" required>
+            <input type="text" id="new-goal-description" placeholder="Açıklama (örn: Vücudunu nemli tut.)" required>
+            <input type="text" id="new-goal-icon" placeholder="Emoji İkonu (örn: 💧)" maxlength="2" required>
+            <button type="submit">Alışkanlık Ekle</button>
+        </form>
+    </section>
+
+    <div class="suggested-habits-container" id="suggested-habits-container">
+        <h2>✨ Önerilen Alışkanlıklar</h2>
+        <div id="suggested-habits-list" class="habit-cards-grid">
+            </div>
     </div>
 
-    <div class="goals-container">
-      <h2>Hedeflerim</h2>
-      <div id="goals-list">
-        <!-- Hedefler dinamik olarak eklenecek -->
-      </div>
-    </div>
-
-    <div class="add-goal">
-      <input type="text" id="new-goal" placeholder="Yeni hedef ekle (Örn: Her gün 10 sayfa kitap oku)">
-      <button id="add-goal-btn">+ Ekle</button>
-    </div>
-
-    <div class="stats">
-      <div class="stat-card">
-        <h3>Toplam Tamamlanan</h3>
-        <p id="total-completed">0 gün</p>
-      </div>
-      <div class="stat-card">
-        <h3>Devam Eden</h3>
-        <p id="current-streak">0 gün</p>
-      </div>
-    </div>
+    <section id="goals-section" class="goals-section">
+        <h2>Takip Ettiklerim</h2>
+        <div id="goals-list" class="goals-list">
+            </div>
+    </section>
   </div>
-
-  <!-- Firebase ve Uygulama JS 
-  <script src="firebase.js"></script>
-  <script src="app.js"></script>
-  -->
 </body>
 </html>

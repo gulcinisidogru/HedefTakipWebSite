@@ -6,6 +6,7 @@
   <title>Giriş Yap</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* style.css'deki genel stiller burada da geçerli olacak */
     .login-container {
       max-width: 400px;
       margin: 100px auto;
@@ -18,7 +19,7 @@
 
     .login-container h2 {
       margin-bottom: 20px;
-      color: #4CAF50;
+      color: var(--primary-color); /* Tema rengini kullan */
     }
 
     .login-container input {
@@ -33,98 +34,53 @@
     .login-container button {
       width: 100%;
       padding: 12px;
-      background-color: #4CAF50;
+      background-color: var(--primary-color); /* Tema rengini kullan */
       color: white;
       border: none;
       border-radius: 5px;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
     }
 
     .login-container button:hover {
-      background-color: #45a049;
+      background-color: var(--accent-color); /* Tema vurgu rengini kullan */
     }
 
     .login-container p {
-      margin-top: 20px;
-      color: #666;
+      margin-top: 15px;
+      font-size: 14px;
     }
 
     .login-container a {
-      color: #4CAF50;
+      color: var(--primary-color); /* Tema rengini kullan */
       text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
     }
 
     #login-message {
-      color: #f44336;
+      color: red;
       margin-top: 10px;
-      min-height: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>21 Günlük Hedef Takip</h2>
+    <h2>Giriş Yap</h2>
     <form id="login-form">
-      <input type="email" id="email" placeholder="E-posta" required>
-      <input type="password" id="password" placeholder="Şifre" required>
+      <input type="email" id="login-email" placeholder="E-posta" required>
+      <input type="password" id="login-password" placeholder="Şifre" required>
       <button type="submit">Giriş Yap</button>
     </form>
-    <p>Hesabınız yok mu? <a href="signup.html">Kayıt Olun</a></p>
     <p id="login-message"></p>
+    <p>Hesabın yok mu? <a href="signup.html">Kayıt Ol</a></p>
   </div>
 
-  <script type="module">
-    import { auth } from './firebase.js';
-    import { signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js';
-
-    const loginForm = document.getElementById('login-form');
-    const messageElement = document.getElementById('login-message');
-
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        messageElement.textContent = "Giriş yapılıyor...";
-        await signInWithEmailAndPassword(auth, email, password);
-        localStorage.setItem('loggedIn', 'true');
-        window.location.href = 'index.html';
-      } catch (error) {
-        console.error("Giriş hatası:", error);
-        let errorMessage = "Giriş yapılamadı";
-        switch(error.code) {
-          case "auth/invalid-email":
-            errorMessage = "Geçersiz e-posta formatı";
-            break;
-          case "auth/user-disabled":
-            errorMessage = "Bu hesap devre dışı bırakılmış";
-            break;
-          case "auth/user-not-found":
-            errorMessage = "Bu e-posta ile kayıtlı kullanıcı bulunamadı";
-            break;
-          case "auth/wrong-password":
-            errorMessage = "Hatalı şifre";
-            break;
-          case "auth/too-many-requests":
-            errorMessage = "Çok fazla hatalı giriş denemesi. Lütfen daha sonra tekrar deneyin";
-            break;
-          default:
-            errorMessage = error.message;
-        }
-        messageElement.textContent = errorMessage;
-      }
-    });
-
-    // Eğer kullanıcı zaten giriş yaptıysa, direkt yönlendir
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = 'index.html';
-      }
-    });
-  </script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

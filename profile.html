@@ -6,149 +6,179 @@
   <title>Profilim</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Profil konteynerinin genel stilini tanımlar */
     .profile-container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 30px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px; /* Maksimum genişlik */
+      margin: 50px auto; /* Üstten ve alttan 50px boşluk, yatayda ortala */
+      padding: 30px; /* İç boşluk */
+      background-color: white; /* Arka plan rengi */
+      border-radius: 10px; /* Köşe yuvarlaklığı */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Hafif gölge efekti */
+      text-align: center; /* İçeriği ortala */
     }
-    
+
+    /* Profil başlık bölümünün stilini tanımlar */
     .profile-header {
-      text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 30px; /* Alttan boşluk */
     }
-    
+
+    /* Profil resmi konteynerinin stilini tanımlar */
     .profile-pic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background-color: #eee;
-      margin: 0 auto 20px;
-      overflow: hidden;
-      position: relative;
+      width: 120px; /* Genişlik */
+      height: 120px; /* Yükseklik */
+      border-radius: 50%; /* Dairesel şekil */
+      object-fit: cover; /* Resmi kutuya sığdır */
+      border: 4px solid var(--primary-color); /* Tema renginde kenarlık */
+      margin-bottom: 15px; /* Alttan boşluk */
     }
-    
-    .profile-pic img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+
+    /* Kullanıcı adının stilini tanımlar */
+    .profile-header h2 {
+      color: var(--primary-color); /* Tema rengini kullan */
+      margin-bottom: 5px; /* Alttan boşluk */
     }
-    
-    .profile-pic .edit {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      background-color: rgba(0,0,0,0.5);
-      color: white;
-      width: 100%;
-      text-align: center;
-      padding: 5px;
-      cursor: pointer;
+
+    /* Kullanıcı e-postasının stilini tanımlar */
+    .profile-header p {
+      color: #777; /* Gri yazı rengi */
+      font-size: 16px; /* Yazı tipi boyutu */
     }
-    
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      margin: 30px 0;
+
+    /* İstatistik kartlarının konteynerinin stilini tanımlar */
+    .stats-grid {
+      display: grid; /* Izgara düzeni kullan */
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Otomatik sütun genişliği */
+      gap: 20px; /* Izgara öğeleri arası boşluk */
+      margin-bottom: 30px; /* Alttan boşluk */
     }
-    
-    .stat-item {
-      text-align: center;
+
+    /* İstatistik kartlarının stilini tanımlar */
+    .stat-card {
+      background-color: var(--secondary-color); /* Tema ikincil rengini kullan */
+      padding: 20px; /* İç boşluk */
+      border-radius: 10px; /* Köşe yuvarlaklığı */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Hafif gölge */
     }
-    
-    .stat-item .number {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--primary-color);
+
+    /* İstatistik kartı başlığının stilini tanımlar */
+    .stat-card h3 {
+      color: var(--primary-color); /* Tema rengini kullan */
+      margin-bottom: 10px; /* Alttan boşluk */
+      font-size: 18px; /* Yazı tipi boyutu */
     }
-    
-    .stat-item .label {
-      font-size: 14px;
-      color: #666;
+
+    /* İstatistik değerinin stilini tanımlar */
+    .stat-card p {
+      font-size: 24px; /* Büyük yazı tipi boyutu */
+      font-weight: bold; /* Kalın yazı */
+      color: #333; /* Koyu gri yazı rengi */
     }
-    
-    .back-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      margin-top: 20px;
+
+    /* Başarımlar bölümünün stilini tanımlar */
+    .achievements-section {
+      text-align: left; /* Metni sola hizala */
+      margin-bottom: 30px; /* Alttan boşluk */
+    }
+
+    /* Başarımlar bölümü başlığının stilini tanımlar */
+    .achievements-section h3 {
+      color: var(--primary-color); /* Tema rengini kullan */
+      margin-bottom: 15px; /* Alttan boşluk */
+      font-size: 20px; /* Yazı tipi boyutu */
+    }
+
+    /* Başarımlar listesinin stilini tanımlar */
+    .achievements-section ul {
+      list-style-type: none; /* Liste işaretlerini kaldır */
+      padding: 0; /* İç boşluğu kaldır */
+    }
+
+    /* Başarımlar listesi öğelerinin stilini tanımlar */
+    .achievements-section li {
+      background-color: #f9f9f9; /* Arka plan rengi */
+      padding: 10px 15px; /* İç boşluk */
+      border-left: 5px solid var(--accent-color); /* Vurgu renginde sol kenarlık */
+      margin-bottom: 8px; /* Alttan boşluk */
+      border-radius: 5px; /* Köşe yuvarlaklığı */
+      font-size: 16px; /* Yazı tipi boyutu */
+    }
+
+    /* Buton grubunun stilini tanımlar */
+    .button-group {
+      display: flex; /* Flexbox düzeni kullan */
+      justify-content: center; /* Yatayda ortala */
+      gap: 15px; /* Butonlar arası boşluk */
+    }
+
+    /* Genel buton stilini tanımlar */
+    .button-group button {
+      padding: 12px 25px; /* İç boşluk */
+      border: none; /* Kenarlık yok */
+      border-radius: 8px; /* Köşe yuvarlaklığı */
+      font-size: 16px; /* Yazı tipi boyutu */
+      cursor: pointer; /* Fare imleci işaretçi olur */
+      transition: background-color 0.3s ease; /* Arka plan rengi geçişi */
+    }
+
+    /* Ana sayfaya dön butonunun stilini tanımlar */
+    .button-group .back-button {
+      background-color: #6c757d; /* Gri arka plan rengi */
+      color: white; /* Beyaz yazı rengi */
+    }
+
+    /* Ana sayfaya dön butonunun hover stilini tanımlar */
+    .button-group .back-button:hover {
+      background-color: #5a6268; /* Koyu gri arka plan rengi */
+    }
+
+    /* Çıkış yap butonunun stilini tanımlar */
+    .button-group .logout-button {
+      background-color: #dc3545; /* Kırmızı arka plan rengi */
+      color: white; /* Beyaz yazı rengi */
+    }
+
+    /* Çıkış yap butonunun hover stilini tanımlar */
+    .button-group .logout-button:hover {
+      background-color: #c82333; /* Koyu kırmızı arka plan rengi */
     }
   </style>
 </head>
 <body>
   <div class="profile-container">
-    <div class="profile-header">
-      <div class="profile-pic">
-        <div class="edit">Fotoğraf Değiştir</div>
+    <header class="profile-header">
+      <img src="https://via.placeholder.com/120/4CAF50/FFFFFF?text=JP" alt="Profil Resmi" class="profile-pic">
+      <h2 id="user-email">Yükleniyor...</h2>
+      <p>Alışkanlık Yolculuğunuz</p>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Toplam Alışkanlık</h3>
+        <p id="total-goals">0</p>
       </div>
-      <h2>Kullanıcı Adı</h2>
-      <p>Üyelik Tarihi: 01 Ocak 2023</p>
-    </div>
-    
-    <div class="stats">
-      <div class="stat-item">
-        <div class="number" id="total-goals">0</div>
-        <div class="label">Hedef</div>
+      <div class="stat-card">
+        <h3>Tamamlanan Günler</h3>
+        <p id="completed-days">0</p>
       </div>
-      <div class="stat-item">
-        <div class="number" id="completed-days">0</div>
-        <div class="label">Tamamlanan Gün</div>
-      </div>
-      <div class="stat-item">
-        <div class="number" id="current-chapter">1</div>
-        <div class="label">Chapter</div>
+      <div class="stat-card">
+        <h3>Mevcut Chapter</h3>
+        <p id="current-chapter">1</p>
       </div>
     </div>
-    
-    <h3>Son Başarılar</h3>
-    <div id="achievements">
-      <p>Henüz başarı kazanmadınız. Hedeflerinize devam edin!</p>
+
+    <section class="achievements-section">
+      <h3>Başarımlarınız</h3>
+      <div id="achievements">
+        <ul><li>Yükleniyor...</li></ul>
+      </div>
+    </section>
+
+    <div class="button-group">
+      <button class="back-button" onclick="window.location.href='index.html'">Ana Sayfaya Dön</button>
+      <button class="logout-button" id="logout">Çıkış Yap</button>
     </div>
-    
-    <a href="index.html" class="back-btn">Ana Sayfaya Dön</a>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (localStorage.getItem('loggedIn') !== 'true') {
-        window.location.href = 'login.html';
-      }
-      
-      // Profil istatistiklerini güncelle
-      const goals = JSON.parse(localStorage.getItem('goals')) || [];
-      const totalDays = goals.reduce((sum, goal) => sum + goal.daysCompleted.length, 0);
-      
-      document.getElementById('total-goals').textContent = goals.length;
-      document.getElementById('completed-days').textContent = totalDays;
-      
-      // Chapter hesapla
-      let chapter = 1;
-      if (totalDays >= 42) chapter = 3;
-      else if (totalDays >= 21) chapter = 2;
-      
-      document.getElementById('current-chapter').textContent = chapter;
-      
-      // Başarıları kontrol et
-      const achievements = [];
-      if (goals.length >= 3) achievements.push('3 farklı hedef belirlediniz!');
-      if (totalDays >= 7) achievements.push('7 gün üst üste devam ettiniz!');
-      if (totalDays >= 21) achievements.push('İlk Chapter\'ı tamamladınız!');
-      
-      const achievementsContainer = document.getElementById('achievements');
-      if (achievements.length > 0) {
-        achievementsContainer.innerHTML = '<ul>' + achievements.map(a => `<li>${a}</li>`).join('') + '</ul>';
-      }
-    });
-  </script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

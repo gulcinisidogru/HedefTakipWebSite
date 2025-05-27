@@ -1,518 +1,643 @@
 /* Temel Stiller */
+/* Tüm elementler için margin, padding ve box-sizing ayarları */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif; /* Font Inter olarak güncellendi */
 }
 
+/* Body için temel stil ve tema geçişleri */
 body {
-  background-color: #f5f7fa;
-  color: #333;
-  transition: all 0.3s ease;
+  background-color: #f5f7fa; /* Varsayılan açık tema arka plan rengi */
+  color: #333; /* Varsayılan yazı rengi */
+  transition: all 0.3s ease; /* Tema geçişleri için yumuşak animasyon */
 }
 
+/* Ana konteyner stilini tanımlar */
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  transition: transform 0.3s ease;
+  max-width: 800px; /* Maksimum genişlik */
+  margin: 0 auto; /* Yatayda ortala */
+  padding: 20px; /* İç boşluk */
+  transition: transform 0.3s ease; /* Dönüşüm animasyonu */
 }
 
-/* Chapter Temaları */
+/* Chapter Temaları (CSS Değişkenleri ile) */
+/* body elementine eklenen sınıflara göre renk şemalarını belirler */
 body.chapter-1 {
-  --primary-color: #4CAF50;
-  --secondary-color: #E8F5E9;
-  --accent-color: #2E7D32;
+  --primary-color: #4CAF50; /* Ana renk (yeşil) */
+  --secondary-color: #E8F5E9; /* İkincil renk (açık yeşil) */
+  --accent-color: #2E7D32; /* Vurgu rengi (koyu yeşil) */
 }
 
 body.chapter-2 {
-  --primary-color: #2196F3;
-  --secondary-color: #E3F2FD;
-  --accent-color: #1565C0;
+  --primary-color: #2196F3; /* Ana renk (mavi) */
+  --secondary-color: #E3F2FD; /* İkincil renk (açık mavi) */
+  --accent-color: #1976D2; /* Vurgu rengi (koyu mavi) */
 }
 
 body.chapter-3 {
-  --primary-color: #9C27B0;
-  --secondary-color: #F3E5F5;
-  --accent-color: #6A1B9A;
+  --primary-color: #9C27B0; /* Ana renk (mor) */
+  --secondary-color: #F3E5F5; /* İkincil renk (açık mor) */
+  --accent-color: #7B1FA2; /* Vurgu rengi (koyu mor) */
 }
 
-/* Menü Stilleri */
-.menu-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 30px;
-  height: 22px;
-  cursor: pointer;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* Koyu Tema */
+body.dark {
+  background-color: #2c3e50; /* Koyu arka plan */
+  color: #ecf0f1; /* Açık yazı */
+  --primary-color: #3498db; /* Koyu temada ana renk (mavi) */
+  --secondary-color: #34495e; /* Koyu temada ikincil renk (koyu gri) */
+  --accent-color: #2980b9; /* Koyu temada vurgu rengi (daha koyu mavi) */
 }
 
-.menu-btn span {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background-color: var(--primary-color);
-  border-radius: 3px;
-  transition: all 0.3s ease;
+/* Koyu Tema İçin Özel Değişiklikler */
+body.dark .container {
+    background-color: #34495e; /* Koyu temada konteyner arka planı */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.main-menu {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 300px;
-  height: 100%;
-  background-color: white;
-  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-  z-index: 999;
-  transition: right 0.3s ease;
-  padding: 80px 20px 20px;
+body.dark .goal-item {
+    background-color: #44607a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.main-menu.active {
-  right: 0;
+body.dark .goal-item h3 {
+    color: #ecf0f1;
 }
 
-.main-menu ul {
-  list-style: none;
+body.dark .goal-item p {
+    color: #bdc3c7;
 }
 
-.main-menu li {
-  margin-bottom: 15px;
+body.dark .complete-btn {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-.main-menu a {
-  text-decoration: none;
-  color: #333;
-  font-size: 18px;
-  display: block;
-  padding: 10px;
-  border-radius: 5px;
-  transition: all 0.3s;
+body.dark .delete-btn {
+    background-color: #e74c3c;
+    color: white;
 }
 
-.main-menu a:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+body.dark .motivation-section {
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Başlık ve İlerleme Çubuğu */
-header {
-  text-align: center;
-  margin-bottom: 30px;
+body.dark .suggested-habits-container {
+    background-color: #34495e;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-#chapter-title {
-  color: var(--primary-color);
-  margin-bottom: 15px;
+body.dark .habit-card {
+    background-color: #44607a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+body.dark .habit-card h3 {
+    color: #ecf0f1;
+}
+
+body.dark .habit-card p {
+    color: #bdc3c7;
+}
+
+body.dark .add-suggested-habit-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Login/Signup Sayfası için Koyu Tema Uyarlamaları */
+body.dark .login-container,
+body.dark .signup-container,
+body.dark .profile-container,
+body.dark .about-container,
+body.dark .settings-container,
+body.dark .stat-card,
+body.dark .achievements-section li,
+body.dark .no-goals-message {
+    background-color: var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: #ecf0f1;
+}
+
+body.dark .login-container h2,
+body.dark .signup-container h2,
+body.dark .profile-container h2,
+body.dark .about-container h1,
+body.dark .settings-container h1,
+body.dark .stat-card h3,
+body.dark .achievements-section h3 {
+    color: var(--primary-color);
+}
+
+body.dark .login-container input,
+body.dark .signup-container input {
+    background-color: #555;
+    color: #ecf0f1;
+    border: 1px solid #777;
+}
+
+body.dark .login-container input::placeholder,
+body.dark .signup-container input::placeholder {
+    color: #bbb;
+}
+
+body.dark .login-container a,
+body.dark .signup-container a,
+body.dark .profile-container a {
+    color: var(--primary-color);
+}
+
+body.dark select {
+    background-color: #555;
+    color: #ecf0f1;
+    border: 1px solid #777;
+}
+
+/* Başlık Stilleri */
+h1 {
+  color: var(--primary-color); /* Tema ana rengini kullanır */
+  text-align: center; /* Ortaya hizala */
+  margin-bottom: 20px; /* Alttan boşluk */
+}
+
+/* Genel İlerleme Çubuğu */
 .progress-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 20px;
+  width: 100%; /* Tam genişlik */
+  background-color: var(--secondary-color); /* İkincil renk arka plan */
+  border-radius: 10px; /* Köşe yuvarlaklığı */
+  overflow: hidden; /* Taşmayı gizle */
+  margin-bottom: 20px; /* Alttan boşluk */
+  height: 20px; /* Yükseklik */
+  position: relative; /* İçindeki elemanların konumlandırılması için */
 }
 
 .progress-bar {
-  flex-grow: 1;
-  height: 10px;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  overflow: hidden;
+  height: 100%; /* %100 yükseklik */
+  width: 100%; /* %100 genişlik */
+  background-color: var(--secondary-color); /* İkincil renk arka plan */
+  border-radius: 10px; /* Köşe yuvarlaklığı */
+  overflow: hidden; /* Taşmayı gizle */
 }
 
 .progress-fill {
-  height: 100%;
-  background-color: var(--primary-color);
-  width: 0%;
-  transition: width 0.5s ease;
+  height: 100%; /* %100 yükseklik */
+  width: 0%; /* Başlangıçta 0 genişlik */
+  background-color: var(--primary-color); /* Ana renk dolgu */
+  border-radius: 10px; /* Köşe yuvarlaklığı */
+  transition: width 0.5s ease-in-out; /* Genişlik değişimi için animasyon */
 }
 
-#progress-text {
-  font-size: 14px;
-  color: #666;
+.progress-text {
+  position: absolute; /* Üstte ortala */
+  top: 50%; /* Yüzde 50 yukarı */
+  left: 50%; /* Yüzde 50 sola */
+  transform: translate(-50%, -50%); /* Kendi boyutuna göre ortala */
+  color: white; /* Beyaz yazı rengi */
+  font-weight: bold; /* Kalın yazı */
+  z-index: 1; /* Diğer elemanların üzerinde olmasını sağla */
+  text-shadow: 0 0 5px rgba(0,0,0,0.3); /* Hafif gölge */
 }
 
-/* Motivasyon Kartı */
-.motivation-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 30px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  border-left: 4px solid var(--primary-color);
+/* Ana menü (sidebar) stilleri */
+.main-menu {
+  position: fixed; /* Sabit konum */
+  top: 0; /* Üstten 0 */
+  left: -250px; /* Başlangıçta ekranın dışında */
+  width: 250px; /* Genişlik */
+  height: 100%; /* Tam yükseklik */
+  background-color: var(--secondary-color); /* İkincil renk arka plan */
+  padding-top: 60px; /* Üstten boşluk */
+  transition: left 0.3s ease; /* Konum değişimi için animasyon */
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Hafif gölge */
+  z-index: 1000; /* Diğer elemanların üzerinde */
 }
 
-.motivation-card p {
-  font-style: italic;
-  color: #555;
-  text-align: center;
+.main-menu.active {
+  left: 0; /* Ekranın içine kaydır */
 }
 
-/* Hedefler Listesi */
-.goals-container {
-  margin-bottom: 30px;
+.main-menu ul {
+  list-style: none; /* Liste işaretlerini kaldır */
 }
 
-.goals-container h2 {
-  margin-bottom: 20px;
-  color: var(--primary-color);
+.main-menu li a {
+  display: block; /* Bloğun tamamını kaplar */
+  padding: 15px 20px; /* İç boşluk */
+  color: var(--primary-color); /* Ana renk yazı */
+  text-decoration: none; /* Alt çizgiyi kaldır */
+  font-size: 18px; /* Yazı tipi boyutu */
+  transition: background-color 0.3s ease; /* Arka plan rengi değişimi */
 }
 
-.goal-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  position: relative;
-  overflow: hidden;
+.main-menu li a:hover {
+  background-color: var(--primary-color); /* Hover durumunda ana renk arka plan */
+  color: white; /* Beyaz yazı */
 }
 
-.goal-card h3 {
-  margin-bottom: 15px;
-  color: var(--primary-color);
-}
-
-.days-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 15px;
-}
-
-.day {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.day.completed {
-  background-color: var(--primary-color);
-  color: white;
-  transform: scale(1.1);
-}
-
-.day:hover {
-  transform: scale(1.1);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* style.css en üstüne ekleyin */
-#add-goal-btn {
-  all: unset; /* Tüm stilleri sıfırla */
-  display: inline-block !important;
-  background: #4CAF50 !important;
-  color: white !important;
-  padding: 12px 24px !important;
-  border-radius: 4px !important;
-}
-
-
-
-.delete-goal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #f44336;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-/* Yeni Hedef Ekleme */
-.add-goal {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.add-goal input {
-  flex-grow: 1;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.add-goal button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0 20px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.add-goal button:hover {
-  background-color: var(--accent-color);
-}
-
-#add-goal-btn {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
-  position: static !important;
-}
-
-
-
-
-.goal-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.goal-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-grow: 1;
-}
-
-.goal-text {
-  font-weight: 500;
-}
-
-.goal-date {
-  font-size: 0.8em;
-  color: #666;
-}
-
-.delete-goal {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #ff4444;
-}
-
-.loading, .no-goals, .error {
-  padding: 20px;
-  text-align: center;
-  color: #666;
-}
-
-
-
-/* Hamburger Menü */
+/* Menü butonu stilleri */
 .menu-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 100;
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  width: 40px; /* Genişlik */
+  height: 30px; /* Yükseklik */
+  position: fixed; /* Sabit konum */
+  top: 20px; /* Üstten 20px */
+  left: 20px; /* Soldan 20px */
+  cursor: pointer; /* Fare imleci işaretçi olur */
+  display: flex; /* Flexbox düzeni */
+  flex-direction: column; /* Dikey yönde sırala */
+  justify-content: space-between; /* Aralarında eşit boşluk */
+  z-index: 1001; /* Menüden daha yukarıda */
 }
 
 .menu-btn span {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background-color: #333;
-  transition: all 0.3s;
+  display: block; /* Bloğun tamamını kaplar */
+  width: 100%; /* Tam genişlik */
+  height: 4px; /* Yükseklik */
+  background-color: var(--primary-color); /* Ana renk arka plan */
+  border-radius: 2px; /* Köşe yuvarlaklığı */
+  transition: all 0.3s ease; /* Animasyon */
 }
 
-.menu-btn.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px); /* Üst çubuğu döndür ve taşı */
 }
 
-.menu-btn.open span:nth-child(2) {
-  opacity: 0;
+.menu-btn.active span:nth-child(2) {
+  opacity: 0; /* Orta çubuğu gizle */
 }
 
-.menu-btn.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
+.menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px); /* Alt çubuğu döndür ve taşı */
 }
 
-.main-menu {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 250px;
-  height: 100vh;
-  background: #fff;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-  transition: right 0.3s;
-  z-index: 99;
-  padding-top: 60px;
+/* Hedef ekleme bölümü */
+.add-goal-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.main-menu.show {
-  right: 0;
+.add-goal-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
 }
 
-/* Hedef Öğeleri */
+.add-goal {
+  display: flex; /* Flexbox düzeni */
+  gap: 10px; /* Elemanlar arası boşluk */
+  margin-top: 20px; /* Üstten boşluk */
+}
+
+.add-goal input {
+  flex-grow: 1; /* Boş alanı doldur */
+  padding: 12px; /* İç boşluk */
+  border: 1px solid #ddd; /* İnce gri kenarlık */
+  border-radius: 8px; /* Köşe yuvarlaklığı */
+  font-size: 16px; /* Yazı tipi boyutu */
+}
+
+.add-goal button {
+  background-color: var(--primary-color); /* Tema ana rengini kullanır */
+  color: white; /* Beyaz yazı rengi */
+  border: none; /* Kenarlık yok */
+  border-radius: 8px; /* Köşe yuvarlaklığı */
+  padding: 0 20px; /* Yatayda iç boşluk */
+  cursor: pointer; /* Fare imleci işaretçi olur */
+  font-size: 16px; /* Yazı tipi boyutu */
+  transition: background-color 0.3s; /* Arka plan rengi değişimi için animasyon */
+}
+
+.add-goal button:hover {
+  background-color: var(--accent-color); /* Hover durumunda vurgu rengini kullanır */
+}
+
+/* Boş alışkanlık listesi mesajı */
+.no-goals-message {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Alışkanlık kartları (Önerilen alışkanlıklar ve ana listedeki alışkanlıklar için) */
+.goals-list {
+  display: grid; /* Izgara düzeni kullan */
+  gap: 20px; /* Izgara öğeleri arası boşluk */
+  margin-top: 20px; /* Üstten boşluk */
+}
+
 .goal-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  transition: background 0.2s;
+  background-color: white; /* Arka plan rengi */
+  padding: 20px; /* İç boşluk */
+  border-radius: 12px; /* Köşe yuvarlaklığı */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Hafif gölge efekti */
+  display: flex; /* Flexbox düzeni */
+  align-items: center; /* Dikeyde ortala */
+  gap: 15px; /* Elemanlar arası boşluk */
+  transition: transform 0.2s ease-in-out; /* Dönüşüm animasyonu */
 }
 
 .goal-item:hover {
-  background: #f9f9f9;
+    transform: translateY(-5px); /* Hover durumunda yukarı kaydır */
 }
 
-.goal-content {
+.goal-details {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.goal-icon {
+  font-size: 36px; /* İkon boyutu */
+  margin-right: 15px; /* Sağdan boşluk */
+}
+
+.goal-text h3 {
+  font-size: 20px; /* Başlık yazı tipi boyutu */
+  color: var(--primary-color); /* Ana renk yazı */
+  margin-bottom: 5px; /* Alttan boşluk */
+}
+
+.goal-text p {
+  font-size: 14px; /* Açıklama yazı tipi boyutu */
+  color: #777; /* Gri yazı rengi */
+}
+
+.goal-progress {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  flex-grow: 1;
+  gap: 5px;
+  min-width: 120px; /* Minimum genişlik */
 }
 
-.goal-text {
-  flex-grow: 1;
-}
-
-.goal-date {
-  font-size: 0.8em;
-  color: #666;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: #ff4444;
-  cursor: pointer;
-  padding: 5px;
-}
-
-/* İlerleme Çubuğu */
-.progress-container {
+.goal-progress .progress-bar {
   width: 100%;
-  background: #f0f0f0;
-  border-radius: 10px;
-  margin: 10px 0;
+  height: 8px; /* Daha ince progress bar */
+  background-color: #e0e0e0;
 }
 
-.progress-fill {
-  height: 10px;
-  border-radius: 10px;
-  background: #4CAF50;
-  width: 0%;
-  transition: width 0.5s;
+.goal-progress .progress-fill {
+  background-color: var(--accent-color); /* Vurgu rengi */
 }
 
-
-
-
-/* Gün Sayacı */
-.day-counter {
-  display: inline-block;
-  min-width: 50px;
-  font-weight: bold;
-  color: #4CAF50;
+.goal-progress .progress-text {
+  position: static; /* Pozisyonu sıfırla */
+  transform: none; /* Transformu sıfırla */
+  color: #555; /* Daha koyu renk */
+  font-size: 12px;
+  font-weight: normal;
+  text-shadow: none;
 }
 
-/* Tamamlanan Hedefler */
-.goal-item.completed .goal-text {
-  text-decoration: line-through;
-  opacity: 0.7;
+.goal-actions {
+  display: flex; /* Flexbox düzeni */
+  gap: 10px; /* Butonlar arası boşluk */
 }
 
-/* Silme Butonu Düzeltmesi */
+.goal-actions button {
+  padding: 10px 15px; /* İç boşluk */
+  border: none; /* Kenarlık yok */
+  border-radius: 8px; /* Köşe yuvarlaklığı */
+  cursor: pointer; /* Fare imleci işaretçi olur */
+  font-size: 14px; /* Yazı tipi boyutu */
+  transition: background-color 0.3s; /* Arka plan rengi değişimi */
+}
+
+.complete-btn {
+  background-color: var(--primary-color); /* Ana renk */
+  color: white; /* Beyaz yazı */
+}
+
+.complete-btn:hover {
+  background-color: var(--accent-color); /* Vurgu rengi */
+}
+
+.complete-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .delete-btn {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: #ff4444;
-  cursor: pointer;
-  padding: 0 10px;
-  margin-left: 10px;
+  background-color: #f44336; /* Kırmızı */
+  color: white; /* Beyaz */
 }
 
 .delete-btn:hover {
-  color: #cc0000;
-  transform: scale(1.2);
+  background-color: #d32f2f; /* Koyu kırmızı */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* İstatistikler */
-.stats {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
+/* 21 gün tamamlanmış alışkanlıklar için özel stil */
+.goal-item.completed-21-days {
+    border: 2px solid var(--accent-color); /* Vurgu renginde kenarlık */
+    background-color: var(--secondary-color); /* Daha açık arka plan */
 }
 
-.stat-card {
-  flex: 1;
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  text-align: center;
+/* Motivasyon bölümü */
+.motivation-section {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
-.stat-card h3 {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
+.motivation-section button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
 }
 
-.stat-card p {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--primary-color);
+.motivation-section button:hover {
+    background-color: var(--accent-color);
+}
+
+.motivation-section p {
+    font-style: italic;
+    color: #555;
+    font-size: 18px;
+    min-height: 40px; /* Yükseklik değişmesini engellemek için */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Başlangıçta gizli */
+    transition: opacity 0.5s ease-in-out; /* Animasyon */
+}
+
+/* Önerilen Alışkanlıklar */
+.suggested-habits-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.suggested-habits-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.habit-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.habit-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.habit-card:hover {
+    transform: translateY(-3px);
+}
+
+.habit-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.habit-card h3 {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    flex-grow: 1; /* Başlık alanını genişlet */
+}
+
+.habit-card p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.habit-card .add-suggested-habit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: 100%; /* Buton genişliğini kart ile aynı yap */
+}
+
+.habit-card .add-suggested-habit-btn:hover {
+    background-color: var(--accent-color);
+}
+
+/* Genel uygulama mesajı */
+.app-message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-weight: bold;
+}
+
+.app-message.show {
+    opacity: 1;
+}
+
+.app-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.app-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.app-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
 }
 
 /* Responsive Tasarım */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .container {
     padding: 15px;
   }
-  
-  .stats {
+
+  .main-menu {
+    width: 200px;
+    left: -200px;
+  }
+
+  .main-menu.active {
+    left: 0;
+  }
+
+  .menu-btn {
+    top: 15px;
+    left: 15px;
+  }
+
+  .add-goal {
     flex-direction: column;
   }
-  
-  .main-menu {
-    width: 250px;
+
+  .add-goal button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .goal-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  .goal-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .goal-actions button {
+    flex-grow: 1;
+  }
+
+  .login-container, .signup-container, .profile-container, .about-container, .settings-container {
+    margin: 50px 20px;
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr; /* Küçük ekranlarda tek sütun */
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
   }
 }
